@@ -1,103 +1,126 @@
-# OpenGL Colored Triangles Demo
+# 🟠 OpenGL Colored Triangles Demo
 
-This project demonstrates rendering a custom colored triangle mesh using modern OpenGL (version 3.3 core profile). It leverages GLFW for window/context creation, GLAD for OpenGL function loading, and a set of helper classes (Shader, VAO, VBO, EBO) to manage OpenGL objects cleanly.
-
-## Overview
-The application creates a window and draws a composite figure made of three triangles arranged as a stylized hexagon or triangular pattern with color gradients. The rendering uses indexed vertex drawing and shader-based coloring with a uniform to scale the vertices.
+This project demonstrates rendering a custom-colored triangle mesh using **modern OpenGL (version 3.3 core profile)**. It leverages **GLFW** for window/context creation, **GLAD** for OpenGL function loading, and a set of helper classes (`Shader`, `VAO`, `VBO`, `EBO`) for clean management of OpenGL objects.
 
 ---
 
-### Features
-+ Modern OpenGL (3.3 core) rendering pipeline  
-+ Indexed drawing with `glDrawElements`  
-+ Vertex positions and colors specified in a single interleaved array  
-+ Use of custom shader programs for vertex transformation and fragment coloring  
-+ Clean resource management with custom wrapper classes for VAO, VBO, and EBO  
-+ Interactive window with GLFW, ready for future input handling or animation  
+## 📚 Table of Contents
+
+- [🎯 Overview](#-overview)
+- [✨ Features](#-features)
+- [📁 Files & Components](#-files--components)
+  - [🔹 Main Program (`main.cpp`)](#-main-program-maincpp)
+  - [🧾 Shader Files (`default.vert`, `default.frag`)](#-shader-files-defaultvert-defaultfrag)
+  - [🛠 Helper Classes](#-helper-classes)
+- [🧬 Vertex Data Explanation](#-vertex-data-explanation)
+- [⚠️ Important Notes](#️-important-notes)
+- [⚙️ How to Build and Run](#️-how-to-build-and-run)
+- [🎨 Real Visual Output](#-real-visual-output)
 
 ---
 
-### Files & Components
+## 🎯 Overview
 
-#### Main program (`main.cpp`)
-- Initializes GLFW and GLAD  
-- Creates an 800x800 window  
-- Defines vertex data (positions + colors) and indices for three triangles forming the composite shape  
-- Loads and compiles shaders via the Shader class  
-- Sets up VAO, VBO, and EBO for vertex attribute management  
-- Uses a uniform variable `scale` in the vertex shader to control the size of the rendered shape  
-- Renders the triangles in a loop until the window is closed  
-- Properly cleans up OpenGL resources on exit  
-
-#### Shader files (`default.vert`, `default.frag`)
-
-**default.vert (vertex shader):**  
-+ Accepts vertex positions and colors as attributes  
-+ Uses a uniform `scale` to scale vertex positions uniformly  
-+ Passes vertex color to the fragment shader  
-
-**default.frag (fragment shader):**  
-+ Receives interpolated colors from the vertex shader  
-+ Outputs the final fragment color  
-
-#### Helper classes
-
-**Shader**  
-+ Manages compiling, linking, and activating shader programs  
-+ Provides methods for setting uniforms, such as `glUniform1f` for floats  
-
-**VAO (Vertex Array Object)**  
-+ Encapsulates the creation and binding of OpenGL VAOs  
-+ Links vertex attribute pointers to VBOs  
-
-**VBO (Vertex Buffer Object)**  
-+ Encapsulates the creation and binding of OpenGL VBOs  
-+ Uploads vertex data to the GPU  
-
-**EBO (Element Buffer Object)**  
-+ Encapsulates creation and binding of EBOs  
-+ Uploads index data for indexed drawing  
+The application creates a window and draws a composite figure made of three triangles arranged in a **stylized hexagon or triangular pattern** with **color gradients**. The rendering uses **indexed vertex drawing** and **shader-based coloring**, with a **uniform to scale** the vertices.
 
 ---
 
-### Vertex Data Explanation
+## ✨ Features
 
-The `vertices` array contains six vertices with:  
-+ Coordinates: 3 floats (x, y, z), forming a pattern resembling a triangle subdivided into smaller triangles.  
-+ Colors: 3 floats (r, g, b), giving a warm orange gradient effect.  
-
-Indices define three triangles using these vertices:  
-+ Lower left triangle: vertices 0, 3, 5  
-+ Lower right triangle: vertices 3, 2, 4  
-+ Upper triangle: vertices 5, 4, 1  
+- ✅ Modern OpenGL (3.3 core) rendering pipeline  
+- ✅ Indexed drawing with `glDrawElements`  
+- ✅ Vertex positions and colors specified in a single interleaved array  
+- ✅ Custom shaders for vertex transformation and fragment coloring  
+- ✅ Clean wrapper classes for VAO, VBO, and EBO  
+- ✅ Interactive window via GLFW (ready for animation or input handling)  
 
 ---
 
-### Important Notes
-+ The uniform `scale` controls the overall size of the rendered shape. Adjusting this value modifies the size dynamically.  
-+ The issue with a "trapezoid" shape previously was caused by an incorrect scale uniform value.  
-+ The viewport is set to 800x800 pixels, matching the GLFW window size.  
-+ The shader paths `"default.vert"` and `"default.frag"` must be present in the executable's working directory.  
+## 📁 Files & Components
+
+### 🔹 Main Program (`main.cpp`)
+
+- Initializes **GLFW** and **GLAD**  
+- Creates a **800x800** window  
+- Defines vertex and index data for a custom triangle shape  
+- Loads and uses shaders via the `Shader` class  
+- Sets up `VAO`, `VBO`, and `EBO`  
+- Uses a `scale` uniform to adjust rendered size  
+- Renders in a loop and cleans up on exit  
 
 ---
 
-### How to Build and Run
-+ Ensure GLFW, GLAD, and OpenGL development libraries are installed.  
-+ Place `default.vert` and `default.frag` shaders in the working directory.  
-+ Compile the project with your favorite C++ compiler, linking GLFW and OpenGL.  
-+ Run the executable; an OpenGL window displaying colored triangles will open.  
-+ Close the window to terminate the program cleanly.  
+### 🧾 Shader Files (`default.vert`, `default.frag`)
+
+#### 📌 `default.vert` (vertex shader)
+- Accepts vertex positions and colors  
+- Scales positions using a `uniform float scale`  
+- Passes color to the fragment shader  
+
+#### 📌 `default.frag` (fragment shader)
+- Receives interpolated colors  
+- Outputs final color to the screen  
 
 ---
 
-### Real Visual Output
-+ A composite shape made of 3 triangles is rendered on screen.  
-+ Each vertex has a color with orange-ish hues (ranging from dark orange to light orange).  
-+ The colors smoothly interpolate across the triangles thanks to the vertex colors and the shader.  
-+ The shape looks like a triangular cluster with inner smaller triangles, shaded in orange tones.  
-+ The background is dark blue.  
-+ The shape’s size is controlled by the `scale` uniform in the shader, affecting its overall size on screen.
+### 🛠 Helper Classes
+
+| Class  | Responsibility |
+|--------|----------------|
+| **Shader** | Compiles, links, and activates GLSL programs. Provides uniform-setting methods. |
+| **VAO** | Encapsulates VAO creation and attribute pointer linkage. |
+| **VBO** | Handles uploading vertex data to the GPU. |
+| **EBO** | Manages index data for efficient drawing using `glDrawElements`. |
+
+---
+
+## 🧬 Vertex Data Explanation
+
+- Each vertex: **6 floats**  
+  - 3 for **position** `(x, y, z)`  
+  - 3 for **color** `(r, g, b)`  
+- Total of **6 vertices**  
+- Forms **3 triangles** using **indexed drawing**
+
+**Triangle Indices:**
+
+| Triangle         | Indices      |
+|------------------|--------------|
+| Lower Left       | `0, 3, 5`     |
+| Lower Right      | `3, 2, 4`     |
+| Upper Triangle   | `5, 4, 1`     |
+
+---
+
+## ⚠️ Important Notes
+
+- `scale` is a **uniform float** that controls the shape’s size dynamically  
+- A previous trapezoid shape was caused by an incorrect `scale` value  
+- Viewport size: **800x800 pixels**, matching the GLFW window  
+- Make sure shader files `default.vert` and `default.frag` are in the **working directory**
+
+---
+
+## ⚙️ How to Build and Run
+
+1. ✅ Install GLFW, GLAD, and OpenGL development libraries  
+2. ✅ Place `default.vert` and `default.frag` in the working directory  
+3. ✅ Compile with a C++ compiler, linking against OpenGL and GLFW  
+4. ✅ Run the executable  
+5. ✅ Close the window to terminate the program  
+
+---
+
+## 🎨 Real Visual Output
+
+- The shape consists of **3 smoothly-shaded triangles**  
+- Each vertex uses a **warm orange hue** (dark to light gradient)  
+- The background is **dark blue**  
+- Colors are smoothly interpolated across the triangles  
+- Shape resembles a **triangular cluster**, like a **stylized subdivided triangle**
 
 ![Warm Orange Subdivided Triangle Composed of Three Adjacent Triangles](https://github.com/user-attachments/assets/1816d17a-eb90-443f-96b4-7885156cbd4d)
 
-*figure 1: Warm Orange Subdivided Triangle Composed of Three Adjacent Triangles*
+*Figure 1: Warm Orange Subdivided Triangle Composed of Three Adjacent Triangles*
+
+---
