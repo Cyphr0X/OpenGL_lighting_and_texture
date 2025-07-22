@@ -1,4 +1,5 @@
-OpenGL Colored Triangles Demo
+#OpenGL Colored Triangles Demo
+
 This project demonstrates rendering a custom colored triangle mesh using modern OpenGL (version 3.3 core profile). It leverages GLFW for window/context creation, GLAD for OpenGL function loading, and a set of helper classes (Shader, VAO, VBO, EBO) to manage OpenGL objects cleanly.
 
 Overview
