@@ -7,6 +7,25 @@
 #include"VBO.h"
 #include"EBO.h"
 
+
+// Vertices coordinates
+GLfloat vertices[] =
+{ //            COORDINATES                           /       COLORS        //    
+    -0.5f     , -0.5f * float(sqrt(3)) / 3,     0.0f,   0.8f, 0.3f,  0.02f,	// Lower left corner
+     0.5f     , -0.5f * float(sqrt(3)) / 3,     0.0f,	0.8f, 0.3f,  0.02f,	// Lower right corner
+     0.0f     , 0.5f * float(sqrt(3)) * 2 / 3, 0.0f,	1.0f, 0.6f,  0.32f, // Upper corner
+    -0.5f / 2 , 0.5f * float(sqrt(3)) / 6,     0.0f,	0.9f, 0.45f, 0.17f, // Inner left
+     0.5f / 2 , 0.5f * float(sqrt(3)) / 6,     0.0f,	0.9f, 0.45f, 0.17f, // Inner right
+     0.0f     , -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,	0.8f, 0.3f,  0.02f  // Inner down
+};
+
+GLuint indices[] =
+{
+    0, 3, 5, // Lower left triangle
+    3, 2, 4, // Lower right triangle
+    5, 4, 1 // Upper triangle
+};
+
 int main()
 {
 	// Initialize GLFW
@@ -21,24 +40,6 @@ int main()
 	// So that means we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-
-	// Vertices coordinates
-	GLfloat vertices[] =
-	{ //            COORDINATES                           /       COLORS        //    
-		-0.5f     , -0.5f * float(sqrt(3)) / 3,     0.0f,   0.8f, 0.3f,  0.02f,	// Lower left corner
-		 0.5f     , -0.5f * float(sqrt(3)) / 3,     0.0f,	0.8f, 0.3f,  0.02f,	// Lower right corner
-		 0.0f     , 0.5f  * float(sqrt(3)) * 2 / 3, 0.0f,	1.0f, 0.6f,  0.32f, // Upper corner
-		-0.5f / 2 , 0.5f  * float(sqrt(3)) / 6,     0.0f,	0.9f, 0.45f, 0.17f, // Inner left
-		 0.5f / 2 , 0.5f  * float(sqrt(3)) / 6,     0.0f,	0.9f, 0.45f, 0.17f, // Inner right
-		 0.0f     , -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,	0.8f, 0.3f,  0.02f  // Inner down
-	};
-
-	GLuint indices[] =
-	{
-		0, 3, 5, // Lower left triangle
-		3, 2, 4, // Lower right traingle
-		5, 4, 1	 // Upper triangle
-	};
 
 	// Create a GLFW window object of 800 by 800 pixels, naming it "OPENGLDEMO"
 	GLFWwindow* window = glfwCreateWindow(800, 800, "OPENGLDEMO", NULL, NULL);
@@ -92,8 +93,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
         shaderProgram.Activate();
-        // Assigns a value Shader to the unform; NOTE: Must always be done after activation in the Shader Program
-        glUniform1f(uniID, 0.8f);
+        // Assigns a value Shader to the unform; NOTE: Must always be done after activation in the Shader Program, !!! THE ISSUE OF THE TRAPEZOID WAS BEING SCALED BY THIS LINE
+        glUniform1f(uniID, 0.5f);
 		// Bind the VAO so OpenGL knows to use it
         VAO1.Bind();
 		// Draw the treiangle using the GL_TRIANGLES primitive
