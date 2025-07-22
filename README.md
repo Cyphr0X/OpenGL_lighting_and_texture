@@ -29,8 +29,6 @@ The application creates a window and draws a composite figure made of three tria
 - Renders the triangles in a loop until the window is closed  
 - Properly cleans up OpenGL resources on exit  
 
----
-
 #### Shader files (`default.vert`, `default.frag`)
 
 **default.vert (vertex shader):**  
@@ -41,8 +39,6 @@ The application creates a window and draws a composite figure made of three tria
 **default.frag (fragment shader):**  
 + Receives interpolated colors from the vertex shader  
 + Outputs the final fragment color  
-
----
 
 #### Helper classes
 
