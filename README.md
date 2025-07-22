@@ -2,7 +2,7 @@
 
 This project demonstrates rendering a custom colored triangle mesh using modern OpenGL (version 3.3 core profile). It leverages GLFW for window/context creation, GLAD for OpenGL function loading, and a set of helper classes (Shader, VAO, VBO, EBO) to manage OpenGL objects cleanly.
 
-Overview
+## Overview
 The application creates a window and draws a composite figure made of three triangles arranged as a stylized hexagon or triangular pattern with color gradients. The rendering uses indexed vertex drawing and shader-based coloring with a uniform to scale the vertices.
 ---
 Features
