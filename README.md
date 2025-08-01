@@ -124,3 +124,119 @@ The application creates a window and draws a composite figure made of three tria
 *Figure 1: Warm Orange Subdivided Triangle Composed of Three Adjacent Triangles*
 
 ---
+
+# 🎨 OpenGL Lighting & Texturing Engine — Second Sub-Project
+
+## Overview
+
+This sub-project is an OpenGL-based graphics engine focused on **lighting**, **texturing**, and **efficient buffer management** using modern OpenGL practices. It features:
+
+- Multiple light types (point, directional, spotlight) with ambient, diffuse, and specular components.
+- Texture loading and management using the popular `stb_image` library.
+- Abstractions for Vertex Buffer Objects (VBO), Element Buffer Objects (EBO), and Vertex Array Objects (VAO).
+- A flexible shader class that handles shader loading, compiling, linking, and error checking.
+
+This codebase serves as a solid foundation for rendering 3D objects with realistic lighting and texture effects.
+
+---
+
+## 📑 Table of Contents
+
+- [🎯 Features](#-features)  
+- [🗂️ Code Structure](#️-code-structure)  
+- [⚙️ How It Works Together](#️-how-it-works-together)  
+- [🚀 How to Use](#-how-to-use)  
+- [🔮 Future Plans](#-future-plans)  
+- [📦 Dependencies](#-dependencies)  
+
+---
+
+## 🎯 Features
+
+### 1. **Shaders**
+
+- **Lighting Shaders** (`default.frag`, `default.vert`):
+  - Support for **point light**, **directional light**, and **spotlight**.
+  - Implements the classic Phong lighting model with ambient, diffuse, and specular terms.
+  - Uses multiple textures for diffuse and specular maps.
+  - Calculates lighting effects per fragment for realistic shading.
+
+- **Light Source Shaders** (`light.frag`, `light.vert`):
+  - Simple shaders to render light sources as colored objects in the scene.
+
+### 2. **Texture Management**
+
+- Loads images using `stb_image`.
+- Supports various texture types, formats, and pixel types.
+- Configures texture wrapping, filtering, and mipmapping for quality and performance.
+- Manages texture binding to texture units and uniform communication with shaders.
+
+### 3. **Buffer Management**
+
+- **VBO (Vertex Buffer Object)**: Stores vertex data in GPU memory.
+- **EBO (Element Buffer Object)**: Stores vertex indices for indexed drawing.
+- **VAO (Vertex Array Object)**: Encapsulates vertex attribute setup for easy binding.
+- Each class manages its OpenGL resource lifecycle (generate, bind, unbind, delete).
+
+### 4. **Shader Class**
+
+- Loads shader source code from files.
+- Compiles vertex and fragment shaders, linking them into a shader program.
+- Provides detailed error output for debugging.
+- Simplifies activating and deleting shader programs.
+
+---
+
+## 🗂️ Code Structure
+
+/Shaders
+├─ default.frag # Fragment shader with lighting calculations
+├─ default.vert # Vertex shader passing vertex data and matrices
+├─ light.frag # Fragment shader for light source rendering
+└─ light.vert # Vertex shader for light source rendering
+
+/Source
+├─ Texture.cpp # Texture loading and management
+├─ VBO.cpp # Vertex Buffer Object abstraction
+├─ EBO.cpp # Element Buffer Object abstraction
+├─ VAO.cpp # Vertex Array Object abstraction
+└─ ShaderClass.cpp # Shader loading, compiling, linking, and error handling
+
+---
+
+## ⚙️ How It Works Together
+
+1. **ShaderClass** loads and compiles the shaders (`default` for objects, `light` for light sources).
+2. **Texture** loads images and binds them to OpenGL texture units.
+3. **VBO**, **EBO**, and **VAO** manage geometry data and how it’s sent to the GPU.
+4. During rendering:
+   - The **camera** and **model** matrices are passed to shaders.
+   - Lighting parameters (light position, color, camera position) control shading.
+   - Textures are sampled for diffuse and specular lighting contributions.
+5. The fragment shader computes realistic lighting with Phong shading per pixel.
+
+---
+
+## 🚀 How to Use
+
+- Include the shader source files in your project.
+- Use the **Shader** class to load and activate your shaders.
+- Load textures with the **Texture** class and bind them to texture units.
+- Create and bind your geometry using **VBO**, **EBO**, and **VAO** classes.
+- Pass uniforms like transformation matrices and lighting parameters before drawing.
+- Render objects with proper lighting and texture effects.
+
+---
+
+## 📦 Dependencies
+
+- OpenGL 3.3 or higher  
+- `GLFW` or similar for window/context creation (not included here)  
+- `GLAD` or similar OpenGL function loader (not included here)  
+- `stb_image.h` for texture loading  
+
+---
+
+Feel free to explore and extend this project! If you want to merge it with other sub-projects later, just reach out.
+
+---
